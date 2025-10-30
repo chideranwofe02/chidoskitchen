@@ -1,0 +1,18 @@
+.bottom-right{
+    position: fixed;
+    bottom: 0;
+    left: 10px;
+    z-index: 100;
+}
+.whatsapp-icon{
+    width: 70px;
+}
+.img-placeholder.imagePreloader0{
+    height: 20px;
+}
+
+@media (max-width:500px) {
+  .whatsapp-icon{
+    width: 50px;
+}  
+}
