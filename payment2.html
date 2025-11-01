@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bank Transfer - Chido’s Kitchen</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #f8f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 30px 15px;
+    }
+
+    .transfer-container {
+      background: #fff;
+      width: 100%;
+      max-width: 600px;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .header {
+      background-color: #d62828;
+      color: white;
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    .header h2 {
+      font-size: 1.8em;
+      margin-bottom: 6px;
+    }
+
+    .header p {
+      font-size: 0.9em;
+      color: #f1f1f1;
+    }
+
+    .content {
+      padding: 30px 25px;
+    }
+
+    .bank-details {
+      background: #fff3f3;
+      padding: 20px;
+      border-radius: 12px;
+      border-left: 5px solid #d62828;
+      margin-bottom: 25px;
+    }
+
+    .bank-details h4 {
+      color: #d62828;
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+
+    .bank-details p {
+      font-size: 0.95em;
+      color: #333;
+      margin: 5px 0;
+    }
+
+    .copy-btn {
+      background: #d62828;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 15px;
+      font-size: 0.9em;
+      cursor: pointer;
+      float: right;
+      margin-top: -35px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-weight: 500;
+      color: #444;
+      font-size: 0.95em;
+    }
+
+    input[type="file"], input[type="text"] {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 0.95em;
+      transition: border 0.3s;
+    }
+
+    input:focus {
+      border: 1px solid #d62828;
+    }
+
+    .confirm-btn {
+      background: #d62828;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 1em;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .confirm-btn:hover {
+      background: #b71c1c;
+    }
+
+    .note {
+      font-size: 0.85em;
+      color: #777;
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.85em;
+      color: #888;
+      padding: 15px;
+      background-color: #f5f5f5;
+    }
+
+    @media (max-width: 480px) {
+      .header h2 {
+        font-size: 1.5em;
+      }
+      .bank-details {
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="transfer-container">
+    <div class="header">
+      <h2>Bank Transfer Payment 🏦</h2>
+      <p>Complete your payment by sending to the account below</p>
+    </div>
+
+    <div class="content">
+      <!-- Bank Details -->
+      <div class="bank-details">
+        <h4>Chido’s Kitchen Official Account</h4>
+        <p><strong>Bank Name:</strong> Zenith Bank</p>
+        <p><strong>Account Name:</strong> Chido’s Kitchen</p>
+        <p><strong>Account Number:</strong> <span id="acct-num">1234567890</span></p>
+        <button class="copy-btn" onclick="copyAccount()">Copy</button>
+      </div>
+
+      <!-- Receipt Upload Form -->
+      <form action="#" method="POST" enctype="multipart/form-data">
+        <label for="payer-name">Your Full Name</label>
+        <input type="text" id="payer-name" name="payer-name" placeholder="Enter your full name" required />
+
+        <label for="amount">Amount Paid (₦)</label>
+        <input type="text" id="amount" name="amount" placeholder="Enter amount sent" required />
+
+        <label for="receipt">Upload Payment Receipt</label>
+        <input type="file" id="receipt" name="receipt" accept="image/*,.pdf" required />
+
+        <button class="confirm-btn" type="submit">Confirm Payment</button>
+        <p class="note">After confirmation, your wallet or order will be credited within a few minutes.</p>
+      </form>
+    </div>
+
+    <footer>© 2025 Chido’s Kitchen — Secure Payments, Fresh Meals 🍲</footer>
+  </div>
+
+  <script>
+    function copyAccount() {
+      const acctNum = document.getElementById("acct-num").innerText;
+      navigator.clipboard.writeText(acctNum);
+      alert("Account number copied!");
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Subscription - Chido’s Kitchen</title>
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="assets/css/main.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background-color: var(--surface-color);
+      font-family: var(--default-font);
+      color: var(--default-color);
+      overflow-x: hidden;
+    }
+
+    .dashboard {
+      display: flex;
+      min-height: 100vh;
+      background: var(--surface-color);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background-color: var(--accent-color);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      padding: 25px 0;
+      height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 1050;
+    }
+
+    .sidebar h2 {
+      font-size: 22px;
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 12px 30px;
+      color: #fff;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background-color: var(--accent-color);
+      color: #fff;
+      border: none;
+      font-size: 24px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      z-index: 1100;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    /* Cart */
+    .cart-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--accent-color);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      border: none;
+      transition: 0.3s;
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      z-index: 1100;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      background-color: #fff;
+      color: var(--accent-color);
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 50%;
+      padding: 2px 6px;
+    }
+
+    .main {
+      flex: 1;
+      margin-left: 250px;
+      padding: 40px;
+      background: var(--background-color);
+    }
+
+    .day-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      padding: 20px;
+      transition: 0.2s;
+    }
+
+    .day-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .meal-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    .meal-toggle label {
+      font-weight: 600;
+    }
+
+    .meal-toggle input[type="checkbox"] {
+      width: 45px;
+      height: 22px;
+      appearance: none;
+      background: #ddd;
+      border-radius: 15px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .meal-toggle input[type="checkbox"]:checked {
+      background: var(--accent-color);
+    }
+
+    .meal-toggle input[type="checkbox"]::before {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      top: 2px;
+      left: 3px;
+      transition: transform 0.3s;
+    }
+
+    .meal-toggle input[type="checkbox"]:checked::before {
+      transform: translateX(22px);
+    }
+
+    .meal-select {
+      margin: 10px 0;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+
+    .subscribe-btn {
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 20px;
+      font-weight: 600;
+      transition: 0.3s;
+      margin-top: 25px;
+    }
+
+    .subscribe-btn:hover {
+      background-color: #e43c3c;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      .main {
+        margin-left: 0;
+      }
+      .hamburger {
+        display: block;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Hamburger -->
+  <button class="hamburger" id="hamburger"><i class="bi bi-list"></i></button>
+
+  <!-- Cart -->
+  <button class="cart-btn">
+    <i class="bi bi-cart-fill"></i>
+    <span class="cart-count">3</span>
+  </button>
+
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <h2>Chido’s Kitchen</h2>
+      <a href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+      <a href="#"><i class="bi bi-egg-fried me-2"></i> Menu</a>
+      <a href="subscription.html" class="active"><i class="bi bi-calendar-check me-2"></i> Subscriptions</a>
+      <a href="referrals.html"><i class="bi bi-gift me-2"></i> Referrals</a>
+      <a href="wallet.html"><i class="bi bi-wallet2 me-2"></i> Wallet</a>
+      <a href="#"><i class="bi bi-person me-2"></i> Profile</a>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+      <h4 class="fw-bold mb-4">Customize Your Weekly Meal Subscription 🍱</h4>
+      <div class="row g-4">
+        
+        <!-- Monday -->
+        <div class="col-md-4">
+          <div class="day-card">
+            <h5 class="text-danger">Monday</h5>
+            
+            <div class="meal-toggle">
+              <label>Breakfast</label>
+              <input type="checkbox" checked id="monday-breakfast-toggle" onchange="toggleMeal('monday-breakfast')">
+            </div>
+            <div class="meal-select" id="monday-breakfast">
+              <select>
+                <option>Indomie & Egg</option>
+                <option>Bread & Tea</option>
+                <option>Beans & Pap</option>
+              </select>
+            </div>
+
+            <div class="meal-toggle">
+              <label>Lunch</label>
+              <input type="checkbox" checked id="monday-lunch-toggle" onchange="toggleMeal('monday-lunch')">
+            </div>
+            <div class="meal-select" id="monday-lunch">
+              <select>
+                <option>Jollof Rice & Chicken</option>
+                <option>Fried Rice & Turkey</option>
+                <option>Yam Porridge</option>
+              </select>
+            </div>
+
+            <div class="meal-toggle">
+              <label>Dinner</label>
+              <input type="checkbox" id="monday-dinner-toggle" onchange="toggleMeal('monday-dinner')">
+            </div>
+            <div class="meal-select" id="monday-dinner" style="display:none;">
+              <select>
+                <option>Onugbu Soup & Fufu</option>
+                <option>Egusi Soup & Eba</option>
+                <option>Beans & Plantain</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tuesday -->
+        <div class="col-md-4">
+          <div class="day-card">
+            <h5 class="text-danger">Tuesday</h5>
+            <div class="meal-toggle">
+              <label>Breakfast</label>
+              <input type="checkbox" id="tuesday-breakfast-toggle" onchange="toggleMeal('tuesday-breakfast')">
+            </div>
+            <div class="meal-select" id="tuesday-breakfast" style="display:none;">
+              <select>
+                <option>Bread & Akara</option>
+                <option>Tea & Egg</option>
+                <option>Off</option>
+              </select>
+            </div>
+
+            <div class="meal-toggle">
+              <label>Lunch</label>
+              <input type="checkbox" checked id="tuesday-lunch-toggle" onchange="toggleMeal('tuesday-lunch')">
+            </div>
+            <div class="meal-select" id="tuesday-lunch">
+              <select>
+                <option>White Rice & Stew</option>
+                <option>Okra Soup & Eba</option>
+              </select>
+            </div>
+
+            <div class="meal-toggle">
+              <label>Dinner</label>
+              <input type="checkbox" checked id="tuesday-dinner-toggle" onchange="toggleMeal('tuesday-dinner')">
+            </div>
+            <div class="meal-select" id="tuesday-dinner">
+              <select>
+                <option>Spaghetti & Beef</option>
+                <option>Beans & Plantain</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Wednesday -->
+        <div class="col-md-4">
+          <div class="day-card">
+            <h5 class="text-danger">Wednesday</h5>
+            <div class="meal-toggle">
+              <label>Breakfast</label>
+              <input type="checkbox" checked id="wednesday-breakfast-toggle" onchange="toggleMeal('wednesday-breakfast')">
+            </div>
+            <div class="meal-select" id="wednesday-breakfast">
+              <select>
+                <option>Porridge & Akamu</option>
+                <option>Tea & Bread</option>
+              </select>
+            </div>
+
+            <div class="meal-toggle">
+              <label>Lunch</label>
+              <input type="checkbox" checked id="wednesday-lunch-toggle" onchange="toggleMeal('wednesday-lunch')">
+            </div>
+            <div class="meal-select" id="wednesday-lunch">
+              <select>
+                <option>Jollof Rice & Fish</option>
+                <option>Fried Rice & Chicken</option>
+              </select>
+            </div>
+
+            <div class="meal-toggle">
+              <label>Dinner</label>
+              <input type="checkbox" id="wednesday-dinner-toggle" onchange="toggleMeal('wednesday-dinner')">
+            </div>
+            <div class="meal-select" id="wednesday-dinner" style="display:none;">
+              <select>
+                <option>Egusi Soup & Fufu</option>
+                <option>Vegetable Soup & Eba</option>
+              </select>
+            </div>
+          </div>
+
+      </div>
+
+      <button class="subscribe-btn mt-4">Confirm Subscription</button>
+    </div>
+  </div>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    let isOpen = false;
+
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      isOpen = !isOpen;
+      hamburger.innerHTML = isOpen ? '<i class="bi bi-x-lg"></i>' : '<i class="bi bi-list"></i>';
+    });
+
+    function toggleMeal(id) {
+      const section = document.getElementById(id);
+      if (section.style.display === "none") {
+        section.style.display = "block";
+      } else {
+        section.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Subscription - Chido’s Kitchen</title>
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="assets/css/main.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background-color: var(--surface-color);
+      font-family: var(--default-font);
+      color: var(--default-color);
+      overflow-x: hidden;
+    }
+
+    .dashboard {
+      display: flex;
+      min-height: 100vh;
+      background: var(--surface-color);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background-color: var(--accent-color);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      padding: 25px 0;
+      height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 1050;
+    }
+
+    .sidebar h2 {
+      font-size: 22px;
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 12px 30px;
+      color: #fff;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background-color: var(--accent-color);
+      color: #fff;
+      border: none;
+      font-size: 24px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      z-index: 1100;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    /* Cart */
+    .cart-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--accent-color);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      border: none;
+      transition: 0.3s;
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      z-index: 1100;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      background-color: #fff;
+      color: var(--accent-color);
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 50%;
+      padding: 2px 6px;
+    }
+
+    .main {
+      flex: 1;
+      margin-left: 250px;
+      padding: 40px;
+      background: var(--background-color);
+    }
+
+    .day-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      padding: 20px;
+      transition: 0.2s;
+    }
+
+    .day-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .meal-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    .meal-toggle label {
+      font-weight: 600;
+    }
+
+    .meal-toggle input[type="checkbox"] {
+      width: 45px;
+      height: 22px;
+      appearance: none;
+      background: #ddd;
+      border-radius: 15px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .meal-toggle input[type="checkbox"]:checked {
+      background: var(--accent-color);
+    }
+
+    .meal-toggle input[type="checkbox"]::before {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      top: 2px;
+      left: 3px;
+      transition: transform 0.3s;
+    }
+
+    .meal-toggle input[type="checkbox"]:checked::before {
+      transform: translateX(22px);
+    }
+
+    .meal-select {
+      margin: 10px 0;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+
+    .subscribe-btn {
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 20px;
+      font-weight: 600;
+      transition: 0.3s;
+      margin-top: 25px;
+    }
+
+    .subscribe-btn:hover {
+      background-color: #e43c3c;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      .main {
+        margin-left: 0;
+      }
+      .hamburger {
+        display: block;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Hamburger -->
+  <button class="hamburger" id="hamburger"><i class="bi bi-list"></i></button>
+
+  <!-- Cart -->
+  <button class="cart-btn">
+    <i class="bi bi-cart-fill"></i>
+    <span class="cart-count">3</span>
+  </button>
+
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <h2>Chido’s Kitchen</h2>
+      <a href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+      <a href="#"><i class="bi bi-egg-fried me-2"></i> Menu</a>
+      <a href="subscription.html" class="active"><i class="bi bi-calendar-check me-2"></i> Subscriptions</a>
+      <a href="referrals.html"><i class="bi bi-gift me-2"></i> Referrals</a>
+      <a href="wallet.html"><i class="bi bi-wallet2 me-2"></i> Wallet</a>
+      <a href="#"><i class="bi bi-person me-2"></i> Profile</a>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+      <h4 class="fw-bold mb-4">Customize Your Weekly Meal Subscription 🍱</h4>
+      <div class="row g-4">
+        
+        <!-- Monday -->
+        <div class="col-md-4"> 
+          <div class="day-card">
+            <h5 class="text-danger">Monday</h5>
+            
+            <div class="meal-toggle">
+              <label>Breakfast</label>
+              <input type="checkbox" checked id="monday-breakfast-toggle" onchange="toggleMeal('monday-breakfast')">
+            </div>
+            <div class="meal-select" id="monday-breakfast">
+              <select>
+                <option>Indomie & Egg</option>
+                <option>Bread & Tea</option>
+                <option>Beans & Pap</option>
+              </select>
+            </div>
+
+            <div class="meal-toggle">
+              <label>Lunch</label>
+              <input type="checkbox" checked id="monday-lunch-toggle" onchange="toggleMeal('monday-lunch')">
+            </div>
+            <div class="meal-select" id="monday-lunch">
+              <select>
+                <option>Jollof Rice & Chicken</option>
+                <option>Fried Rice & Turkey</option>
+                <option>Yam Porridge</option>
+              </select>
+            </div>
+
+            <div class="meal-toggle">
+              <label>Dinner</label>
+              <input type="checkbox" id="monday-dinner-toggle" onchange="toggleMeal('monday-dinner')">
+            </div>
+            <div class="meal-select" id="monday-dinner" style="display:none;">
+              <select>
+                <option>Onugbu Soup & Fufu</option>
+                <option>Egusi Soup & Eba</option>
+                <option>Beans & Plantain</option>
+              </select>
+            </div>
+          </div>
+        </div> 
+
+   <div class="col-md-4"> 
+          <div class="day-card">
+            <h5 class="text-danger">Monday</h5>
+            
+            <div class="meal-toggle">
+              <label>Breakfast</label>
+              <input type="checkbox" checked id="monday-breakfast-toggle" onchange="toggleMeal('monday-breakfast')">
+            </div>
+            <div class="meal-select" id="monday-breakfast">
+              <select>
+                <option>Indomie & Egg</option>
+                <option>Bread & Tea</option>
+                <option>Beans & Pap</option>
+              </select>
+            </div>
+
+            <div class="meal-toggle">
+              <label>Lunch</label>
+              <input type="checkbox" checked id="monday-lunch-toggle" onchange="toggleMeal('monday-lunch')">
+            </div>
+            <div class="meal-select" id="monday-lunch">
+              <select>
+                <option>Jollof Rice & Chicken</option>
+                <option>Fried Rice & Turkey</option>
+                <option>Yam Porridge</option>
+              </select>
+            </div>
+
+            <div class="meal-toggle">
+              <label>Dinner</label>
+              <input type="checkbox" id="monday-dinner-toggle" onchange="toggleMeal('monday-dinner')">
+            </div>
+            <div class="meal-select" id="monday-dinner" style="display:none;">
+              <select>
+                <option>Onugbu Soup & Fufu</option>
+                <option>Egusi Soup & Eba</option>
+                <option>Beans & Plantain</option>
+              </select>
+            </div>
+          </div>
+        </div> 
+
+        <!-- Tuesday -->
+        <div class="col-md-4">
+          <div class="day-card">
+            <h5 class="text-danger">Tuesday</h5>
+            <div class="meal-toggle">
+              <label>Breakfast</label>
+              <input type="checkbox" id="tuesday-breakfast-toggle" onchange="toggleMeal('tuesday-breakfast')">
+            </div>
+            <div class="meal-select" id="tuesday-breakfast" style="display:none;">
+              <select>
+                <option>Bread & Akara</option>
+                <option>Tea & Egg</option>
+                <option>Off</option>
+              </select>
+            </div>
+
+            <div class="meal-toggle">
+              <label>Lunch</label>
+              <input type="checkbox" checked id="tuesday-lunch-toggle" onchange="toggleMeal('tuesday-lunch')">
+            </div>
+            <div class="meal-select" id="tuesday-lunch">
+              <select>
+                <option>White Rice & Stew</option>
+                <option>Okra Soup & Eba</option>
+              </select>
+            </div>
+
+            <div class="meal-toggle">
+              <label>Dinner</label>
+              <input type="checkbox" checked id="tuesday-dinner-toggle" onchange="toggleMeal('tuesday-dinner')">
+            </div>
+            <div class="meal-select" id="tuesday-dinner">
+              <select>
+                <option>Spaghetti & Beef</option>
+                <option>Beans & Plantain</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="subscribe-btn mt-4">Confirm Subscription</button>
+    </div>
+  </div>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    let isOpen = false;
+
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      isOpen = !isOpen;
+      hamburger.innerHTML = isOpen ? '<i class="bi bi-x-lg"></i>' : '<i class="bi bi-list"></i>';
+    });
+
+    function toggleMeal(id) {
+      const section = document.getElementById(id);
+      if (section.style.display === "none") {
+        section.style.display = "block";
+      } else {
+        section.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
