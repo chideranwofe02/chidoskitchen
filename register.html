@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register - Chidos Kitchen</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .register-container {
+      background: white;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      padding: 30px 25px;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .register-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .register-header h2 {
+      color: #d62828;
+      font-size: 1.8em;
+      margin-bottom: 5px;
+    }
+
+    .register-header p {
+      color: #555;
+      font-size: 0.9em;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 0.95em;
+      outline: none;
+      transition: border 0.3s;
+      width: 100%;
+    }
+
+    input:focus {
+      border: 1px solid #d62828;
+    }
+
+    .password-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .password-container input {
+      width: 100%;
+      padding-right: 40px;
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 0.9em;
+      color: #777;
+      user-select: none;
+    }
+
+    .toggle-password:hover {
+      color: #d62828;
+    }
+
+    button {
+      background: #d62828;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #b71c1c;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+
+    .login-link a {
+      color: #d62828;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8em;
+      color: #888;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 480px) {
+      .register-container {
+        padding: 25px 18px;
+      }
+
+      .register-header h2 {
+        font-size: 1.5em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <div class="register-header">
+      <h2>🍴 Join Chidos Kitchen</h2>
+      <p>Register to enjoy fresh meals and earn referral bonuses</p>
+    </div>
+
+    <form action="#" method="POST">
+      <input type="text" name="fullname" placeholder="Full Name" required />
+      <input type="email" name="email" placeholder="Email Address" required />
+      <input type="tel" name="phone" placeholder="Phone Number" required />
+
+      <!-- Password field -->
+      <div class="password-container">
+        <input type="password" name="password" placeholder="Create Password" required />
+        <span class="toggle-password" id="togglePassword1">👁️</span>
+      </div>
+
+      <!-- Confirm Password field -->
+      <div class="password-container">
+        <input type="password" name="confirm-password" placeholder="Confirm Password" required />
+        <span class="toggle-password" id="togglePassword2">👁️</span>
+      </div>
+
+      <input type="text" name="location" placeholder="Location (where we deliver your food)" />
+      <input type="text" name="referral" placeholder="Referral Code (optional)" />
+
+      <div class="errMessage" id="errMessage"></div>
+      <button type="submit">Create Account</button>
+    </form>
+
+    <div class="login-link">
+      Already have an account? <a href="login.html">Login</a>
+    </div>
+
+    <footer>© 2025 Chidos Kitchen</footer>
+  </div>
+
+  <script>
+    // Password visibility toggles
+    const togglePassword1 = document.getElementById("togglePassword1");
+    const togglePassword2 = document.getElementById("togglePassword2");
+    const password1 = document.querySelector("input[name='password']");
+    const password2 = document.querySelector("input[name='confirm-password']");
+
+    togglePassword1.addEventListener("click", () => {
+      const type = password1.type === "password" ? "text" : "password";
+      password1.type = type;
+      togglePassword1.textContent = type === "password" ? "👁️" : "🙈";
+    });
+
+    togglePassword2.addEventListener("click", () => {
+      const type = password2.type === "password" ? "text" : "password";
+      password2.type = type;
+      togglePassword2.textContent = type === "password" ? "👁️" : "🙈";
+    });
+  </script>
+
+  <script src="javascript/register.js"></script>
+</body>
+</html>

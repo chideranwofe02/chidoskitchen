@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chido's Kitchen - Subscription</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8fafc;
+      margin: 0;
+      padding: 0;
+      color: #1f2937;
+    }
+
+    header {
+      background-color: #ef4444;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      padding: 20px;
+    }
+
+    .day-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .day-card h3 {
+      margin: 0 0 10px 0;
+      color: #ef4444;
+    }
+
+    .meal-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .meal-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f1f5f9;
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+
+    .meal-option input {
+      accent-color: #ef4444;
+    }
+
+    button {
+      background-color: #ef4444;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #dc2626;
+    }
+
+    @media (max-width: 768px) {
+      .meal-options {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🍽️ Chido's Kitchen</h1>
+    <span>Subscription Plan</span>
+  </header>
+
+  <div class="container">
+    <h2 style="color:#ef4444;">Customize Your Weekly Meal Plan</h2>
+    <p>Select your preferred meals for each day. Toggle breakfast, lunch, or dinner based on your choice.</p>
+
+    <form>
+      <!-- Loop through days -->
+      <div class="day-card">
+        <h3>Monday</h3>
+        <div class="meal-options">
+          <label class="meal-option"><input type="checkbox"> Breakfast</label>
+          <label class="meal-option"><input type="checkbox"> Lunch</label>
+          <label class="meal-option"><input type="checkbox"> Dinner</label>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <h3>Tuesday</h3>
+        <div class="meal-options">
+          <label class="meal-option"><input type="checkbox"> Breakfast</label>
+          <label class="meal-option"><input type="checkbox"> Lunch</label>
+          <label class="meal-option"><input type="checkbox"> Dinner</label>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <h3>Wednesday</h3>
+        <div class="meal-options">
+          <label class="meal-option"><input type="checkbox"> Breakfast</label>
+          <label class="meal-option"><input type="checkbox"> Lunch</label>
+          <label class="meal-option"><input type="checkbox"> Dinner</label>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <h3>Thursday</h3>
+        <div class="meal-options">
+          <label class="meal-option"><input type="checkbox"> Breakfast</label>
+          <label class="meal-option"><input type="checkbox"> Lunch</label>
+          <label class="meal-option"><input type="checkbox"> Dinner</label>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <h3>Friday</h3>
+        <div class="meal-options">
+          <label class="meal-option"><input type="checkbox"> Breakfast</label>
+          <label class="meal-option"><input type="checkbox"> Lunch</label>
+          <label class="meal-option"><input type="checkbox"> Dinner</label>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <h3>Saturday</h3>
+        <div class="meal-options">
+          <label class="meal-option"><input type="checkbox"> Breakfast</label>
+          <label class="meal-option"><input type="checkbox"> Lunch</label>
+          <label class="meal-option"><input type="checkbox"> Dinner</label>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <h3>Sunday</h3>
+        <div class="meal-options">
+          <label class="meal-option"><input type="checkbox"> Breakfast</label>
+          <label class="meal-option"><input type="checkbox"> Lunch</label>
+          <label class="meal-option"><input type="checkbox"> Dinner</label>
+        </div>
+      </div>
+
+      <button type="submit">Save Weekly Plan</button>
+    </form>
+  </div>
+</body>
+</html>

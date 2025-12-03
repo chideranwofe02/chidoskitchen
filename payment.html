@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout - Chidos Kitchen</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 10px;
+    }
+
+    .checkout-container {
+      background: #fff;
+      width: 100%;
+      max-width: 750px;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .checkout-header {
+      background-color: #d62828;
+      color: white;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .checkout-header h2 {
+      font-size: 1.8em;
+      margin-bottom: 5px;
+    }
+
+    .checkout-body {
+      padding: 30px 25px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .summary, .payment-section {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .summary h4, .payment-section h4 {
+      margin-bottom: 15px;
+      color: #d62828;
+    }
+
+    .summary .item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 0.95em;
+      border-bottom: 1px dashed #ddd;
+      padding-bottom: 8px;
+    }
+
+    .summary .total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      margin-top: 20px;
+      border-top: 2px solid #eee;
+      padding-top: 10px;
+      font-size: 1.1em;
+    }
+
+    label {
+      font-weight: 500;
+      margin-bottom: 5px;
+      display: block;
+      color: #333;
+    }
+
+    select, input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      outline: none;
+      transition: border 0.3s;
+    }
+
+    select:focus, input:focus {
+      border: 1px solid #d62828;
+    }
+
+    .wallet {
+      background: #fff3f3;
+      padding: 12px;
+      border-radius: 8px;
+      border-left: 4px solid #d62828;
+      margin-bottom: 20px;
+      color: #444;
+    }
+
+    .wallet strong {
+      color: #d62828;
+    }
+
+    .confirm-btn {
+      background: #d62828;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      width: 100%;
+      font-size: 1em;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .confirm-btn:hover {
+      background: #b71c1c;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      color: #999;
+      font-size: 0.9em;
+      background-color: #f5f5f5;
+    }
+
+    @media (max-width: 768px) {
+      .checkout-body {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="checkout-container">
+    <div class="checkout-header">
+      <h2>Checkout 🧾</h2>
+      <p>Confirm your order and complete payment</p>
+    </div>
+
+    <div class="checkout-body">
+      <!-- Order Summary -->
+      <div class="summary">
+        <h4>Order Summary</h4>
+        <div class="item">
+          <span>Jollof Rice & Chicken</span>
+          <span>₦1,500</span>
+        </div>
+        <div class="item">
+          <span>Bottle Water</span>
+          <span>₦300</span>
+        </div>
+        <div class="item total">
+          <span>Total</span>
+          <span>₦1,800</span>
+        </div>
+      </div>
+
+      <!-- Payment Section -->
+      <div class="payment-section">
+        <h4>Payment Details</h4>
+        <div class="wallet">
+          Wallet Balance: <strong>₦2,500</strong>  
+          <br />
+          <small>You can pay directly from your wallet.</small>
+        </div>
+
+        <label for="delivery-type">Delivery Type</label>
+        <select id="delivery-type">
+          <option value="pickup">Pickup at Chido’s Kitchen</option>
+          <option value="delivery">Home Delivery</option>
+        </select>
+
+        <label for="address">Delivery Address (if applicable)</label>
+        <input type="text" id="address" placeholder="Enter your address..." />
+
+        <label for="payment-method">Payment Method</label>
+        <select id="payment-method">
+          <option value="wallet">Wallet Balance</option>
+          <option value="card">Debit/Credit Card</option>
+          <option value="transfer">Bank Transfer</option>
+        </select>
+
+        <button class="confirm-btn">Confirm Order</button>
+      </div>
+    </div>
+
+    <footer>© 2025 Chidos Kitchen — Fresh Meals, Every Day 🍛</footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chido’s Kitchen | Taste the Luxury</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* =========================
+       GLOBAL STYLES
+    ============================ */
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background-color: #fffaf5;
+      color: #2d2d2d;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    h1, h2, h3 {
+      color: #2d2d2d;
+      margin: 0;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    /* =========================
+       HEADER
+    ============================ */
+    header {
+      background: linear-gradient(90deg, #ce1212, #ff7f50);
+      color: #fff;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      box-shadow: 0 4px 12px rgba(255, 127, 80, 0.3);
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 24px;
+      letter-spacing: 1px;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      margin-left: 25px;
+      font-weight: 500;
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #fef2e6;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        margin-top: 10px;
+      }
+      nav a {
+        margin-left: 0;
+        margin-right: 15px;
+      }
+    }
+
+    /* =========================
+       HERO SECTION
+    ============================ */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1604152135912-04a022e23696?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+      height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.55);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      padding: 0 20px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin: 20px 0 40px;
+      color: #fef2e6;
+    }
+
+    .btn {
+      background: linear-gradient(90deg, #ce1212, #ff7f50);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(255, 127, 80, 0.3);
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(255, 127, 80, 0.4);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 34px;
+      }
+      .hero p {
+        font-size: 16px;
+      }
+    }
+
+    /* =========================
+       MENU SECTION
+    ============================ */
+    section {
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 32px;
+      color: #2d2d2d;
+      margin-bottom: 10px;
+    }
+
+    section p.section-subtitle {
+      color: #666;
+      font-size: 16px;
+      margin-bottom: 40px;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .menu-item {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(255, 127, 80, 0.25);
+    }
+
+    .menu-item img {
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .menu-content {
+      padding: 20px;
+    }
+
+    .menu-content h3 {
+      margin: 10px 0 5px;
+      color: #2d2d2d;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .price {
+      /* linear-gradient(90deg, #ce1212, #ff7f50) */
+      color: #ce1212;
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .menu-content p {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .menu-content .btn {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #ce1212, #ff7f50);
+      font-size: 15px;
+    }
+
+    /* =========================
+       REFERRAL SECTION
+    ============================ */
+    .referral {
+      background: #fff;
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    .referral h2 {
+      font-size: 30px;
+      color: #2d2d2d;
+      margin-bottom: 15px;
+    }
+
+    .referral p {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      color: #555;
+      font-size: 16px;
+    }
+
+    .referral .bonus {
+      background: linear-gradient(90deg, #ffb347, #ff7f50);
+      color: #fff;
+      padding: 30px;
+      border-radius: 14px;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: 0 6px 20px rgba(255, 127, 80, 0.3);
+    }
+
+    .referral .bonus h3 {
+      color: #fff;
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+
+    .referral .bonus p {
+      color: #fffbe9;
+      margin-bottom: 20px;
+    }
+
+    .referral .btn {
+      background: #fff;
+      color: #ff7f50;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 8px;
+    }
+
+    .referral .btn:hover {
+      background: #fef2e6;
+    }
+
+    /* =========================
+       LOCATION SECTION
+    ============================ */
+    .location {
+      padding: 80px 20px;
+      background: #fffaf2;
+      text-align: center;
+    }
+
+    .location h2 {
+      font-size: 30px;
+      margin-bottom: 10px;
+      color: #2d2d2d;
+    }
+
+    .location p {
+      font-size: 18px;
+      color: #444;
+      font-weight: 500;
+      margin-bottom: 25px;
+    }
+
+    .map {
+      max-width: 800px;
+      margin: 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(255, 127, 80, 0.2);
+    }
+
+    iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+    }
+
+    /* =========================
+       FOOTER
+    ============================ */
+    footer {
+      background: #2d2d2d;
+      color: #ccc;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 14px;
+    }
+
+    footer span {
+      color: #ffb347;
+      font-weight: 500;
+    }
+
+    footer .contact {
+      margin-top: 10px;
+      color: #ffb347;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">Chido’s Kitchen</div>
+    <nav>
+      <!-- <a href="#">Home</a> -->
+      <a href="register.html">Register</a>
+      <a href="login.html">Login</a>
+      <a href="#location">Find Us</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome to Chido’s Kitchen</h1>
+      <p>Where every meal is crafted with love, warmth, and a touch of gold.</p>
+      <a href="#menu" class="btn">View Menu</a>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu">
+    <h2>Our Special Dishes</h2>
+    <p class="section-subtitle">Authentic flavors, handcrafted with passion.</p>
+
+    <div class="menu-grid">
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1606755962773-b3e8e76e44b3?auto=format&fit=crop&w=600&q=80" alt="Jollof Rice">
+        <div class="menu-content">
+          <h3>Spicy Jollof Rice</h3>
+          <div class="price">₦3,500</div>
+          <p>Smoky and delicious Nigerian jollof with tender chicken and plantain sides.</p>
+          <a href="#" class="btn">Order Now</a>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1612197527762-9c0649b25730?auto=format&fit=crop&w=600&q=80" alt="Grilled Chicken">
+        <div class="menu-content">
+          <h3>Grilled Chicken Deluxe</h3>
+          <div class="price">₦5,000</div>
+          <p>Juicy flame-grilled chicken brushed with our signature honey-spice glaze.</p>
+          <a href="#" class="btn">Order Now</a>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1625948964081-61b0b95e7ecb?auto=format&fit=crop&w=600&q=80" alt="Seafood Pasta">
+        <div class="menu-content">
+          <h3>Seafood Pasta</h3>
+          <div class="price">₦6,000</div>
+          <p>Creamy pasta loaded with shrimp, crab, and our signature white sauce.</p>
+          <a href="#" class="btn">Order Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Referral Section -->
+  <section id="referral" class="referral">
+    <h2>Earn More with Referrals</h2>
+    <p>Invite your friends to enjoy Chido’s Kitchen and earn rewards every time they order. Your referral bonuses can be <strong>withdrawn as cash</strong> or <strong>used to buy food</strong> directly on our platform!</p>
+    
+    <div class="bonus">
+      <h3>Get ₦500 Bonus for Each Referral 🎉</h3>
+      <p>Share your unique referral link, and when your friends make their first order, your bonus gets credited instantly.</p>
+      <a href="#" class="btn">Get My Referral Link</a>
+    </div>
+  </section>
+
+  <!-- Location Section -->
+  <section id="location" class="location">
+    <h2>Find Us</h2>
+    <p>📍 Opposite UNN Second Gate, Nsukka, Enugu State, Nigeria</p>
+    <p>📞 Call Us: <strong>+2349036313850</strong></p>
+
+    <div class="map">
+      <iframe src="https://www.google.com/maps?q=University%20of%20Nigeria%20Nsukka%20Second%20Gate&output=embed"></iframe>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 <span>Chido’s Kitchen</span>. All rights reserved.
+    <div class="contact">📞 +2349036313850</div>
+  </footer>
+</body>
+</html>
